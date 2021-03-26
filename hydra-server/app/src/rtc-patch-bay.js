@@ -74,8 +74,8 @@ PatchBay.prototype.reinitAll = function(){
 PatchBay.prototype.initRtcPeer = function(id, opts) {
   this.emit('new peer', {id: id})
   var newOptions = opts
-  console.log()
   if(this.iceServers) {
+    
     opts['config'] = {
       iceServers: this.iceServers
     }
@@ -152,7 +152,7 @@ PatchBay.prototype._readyForSignalling = function ({ peers, servers }) {
 PatchBay.prototype.initConnectionFromId = function(id, callback){
 //  console.log("initianing connection")
   if(id in this.rtcPeers){
-    console.log("Already connected to..", id, this.rtcPeers)
+    // console.log("Already connected to..", id, this.rtcPeers)
     //if this peer was originally only sending a stream (not receiving), recreate connecting but this time two-way
     if(this.rtcPeers[id].initiator===false){
       this.reinitRtcConnection(id)

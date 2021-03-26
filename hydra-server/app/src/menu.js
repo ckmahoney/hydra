@@ -59,7 +59,7 @@ class Menu {
 
   shareSketch() {
       repl.eval(this.editor.getValue(), (code, error) => {
-        console.log('evaluated', code, error)
+        // console.log('evaluated', code, error)
         if(!error){
           this.showConfirmation( (name) => {
             this.sketches.shareSketch(code, this.hydra, name)
@@ -70,7 +70,7 @@ class Menu {
 
   showConfirmation(successCallback, terminateCallback) {
     var c = prompt("Pressing OK will share this sketch to \nhttps://twitter.com/hydra_patterns.\n\nInclude your name or twitter handle (optional):")
-    console.log('confirm value', c)
+    // console.log('confirm value', c)
     if (c !== null) {
       successCallback(c)
     } else {
@@ -120,6 +120,17 @@ class Menu {
       this.formatCode();
       this.sketches.saveLocally(this.editor.getValue())
     }
+  }
+
+  update(n = 1) {
+    if ( n ) {
+      this.mutateSketch({changeTransform: Boolean(Math.round(Math.random()))})
+      this.update(n-1)
+    }
+  }
+
+  new() {
+    this.shuffleSketches()
   }
 }
 

@@ -42,7 +42,7 @@ PBLive.prototype.init = function (stream, opts) {
         this.setName(this.session.id)
       }
     }
-    console.log('connected to server ' + this.settings.server + ' with name ' + this.settings.id)
+    // console.log('connected to server ' + this.settings.server + ' with name ' + this.settings.id)
   })
   // received a broadcast
   this.on('broadcast', this._processBroadcast.bind(this))
@@ -56,7 +56,7 @@ PBLive.prototype.init = function (stream, opts) {
 
   var self = this
   this.on('stream', function (id, stream) {
-    console.log('got stream!', id, stream)
+    // console.log('got stream!', id, stream)
     const video = document.createElement('video')
     if ('srcObject' in video) {
       video.srcObject = stream
@@ -104,7 +104,7 @@ PBLive.prototype.handleNewPeer = function (peer) {
 
 PBLive.prototype.list = function () {
   var l = Object.keys(this.idFromNick)
-  console.log(l)
+  // console.log(l)
   return Object.keys(this.idFromNick)
 }
 
@@ -127,9 +127,9 @@ PBLive.prototype._processBroadcast = function (data) {
       this.nickFromId[data.id] = data.nick
       this.idFromNick[data.nick] = data.id
       if (data.previous) {
-        console.log(data.previous + ' changed to ' + data.nick)
+        // console.log(data.previous + ' changed to ' + data.nick)
       } else {
-        console.log('connected to ' + data.nick)
+        // console.log('connected to ' + data.nick)
       }
     }
   }

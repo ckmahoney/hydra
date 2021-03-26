@@ -28,7 +28,7 @@ class Mutator {
   			let argL = a.name + ": " + a.type + " {" + a.default + "}";
   			argList = argList + argL;
   		});
-  		console.log(v.name + " [" + v.type + "] ("+ argList + ")");
+  		// console.log(v.name + " [" + v.type + "] ("+ argList + ")");
   	});
   }
 
@@ -51,7 +51,7 @@ class Mutator {
   			let argL = a.name + ": " + a.type + " {" + a.default + "}";
   			argList = argList + argL;
   		});
-  		console.log(f.name + " [" + f.type + "] ("+ argList + ")");
+  		// console.log(f.name + " [" + f.type + "] ("+ argList + ")");
 			});
     }
 	}
@@ -85,12 +85,12 @@ class Mutator {
         repl.eval(regen, (code, error) => {
             // If we got an error, keep trying something else.
             if (error) {
-                console.log("Eval error: " + regen);
+                // console.log("Eval error: " + regen);
             }
             needToRun = error;
         });
       } catch (err) {
-      	console.log("Exception caught: " + err);
+      	// console.log("Exception caught: " + err);
       	needToRun = err;
       }
      }
@@ -191,7 +191,7 @@ class Mutator {
         let was = modLit.raw;
         modLit.value = glitched;
         modLit.raw = "" + glitched;
-        console.log("Literal: " + litx + " changed from: " + was + " to: " + glitched);
+        // console.log("Literal: " + litx + " changed from: " + was + " to: " + glitched);
     }
 	}
 
@@ -223,23 +223,23 @@ class Mutator {
 */
 		let funx = Math.floor(Math.random() * this.funCount);
 		if (state.functionTab[funx] === undefined || state.functionTab[funx].callee === undefined || state.functionTab[funx].callee.property === undefined) {
-				  	console.log("No valid functionTab for index: " + funx);
+				  	// console.log("No valid functionTab for index: " + funx);
 	  				return;
 		}
 		let oldName = state.functionTab[funx].callee.property.name;
 
 	  if (oldName == undefined) {
-	  	console.log("No name for callee");
+	  	// console.log("No name for callee");
 	  	return;
 	  }
 		let ftype = this.transMap[oldName].type;
 		if (ftype == undefined) {
-			console.log("ftype undefined for: " + oldName);
+			// console.log("ftype undefined for: " + oldName);
 			return;
 		}
 		let others = this.funcTab[ftype];
 		if (others == undefined) {
-			console.log("no funcTab entry for: " + ftype);
+			// console.log("no funcTab entry for: " + ftype);
 			return;
 		}
 		let changeX = Math.floor(Math.random() * others.length);
@@ -248,12 +248,12 @@ class Mutator {
 		// check blacklisted combinations.
 		if (oldName === "modulate" && become === "modulateScrollX")
 		{
-			console.log("Function: " + funx + " changing from: " + oldName + " can't change to: " + become);
+			// console.log("Function: " + funx + " changing from: " + oldName + " can't change to: " + become);
 			return;
 		}
 
 		state.functionTab[funx].callee.property.name = become;
-    console.log("Function: " + funx + " changed from: " + oldName + " to: " + become);
+    // console.log("Function: " + funx + " changed from: " + oldName + " to: " + become);
 	}
 
 } //  End of class Mutator.

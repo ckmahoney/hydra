@@ -8,7 +8,7 @@ const Menu = require('./src/menu.js')
 const keymaps = require('./keymaps.js')
 const log = require('./src/log.js')
 const repl = require('./src/repl.js')
-
+console.log("index")
 function init () {
   window.pb = pb
   window.P5 = P5
@@ -33,7 +33,7 @@ function init () {
   var pb = new PatchBay()
   var hydra = new HydraSynth({ pb: pb, canvas: canvas, autoLoop: false,  precision: precisionValue})
   var editor = new Editor()
-  var menu = new Menu({ editor: editor, hydra: hydra})
+  var menu = window.menu = new Menu({ editor: editor, hydra: hydra})
   log.init()
 
   // get initial code to fill gallery
