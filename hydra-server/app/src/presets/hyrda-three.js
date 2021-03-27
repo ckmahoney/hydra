@@ -1,0 +1,15 @@
+let { sin, cos}  = Math
+
+
+voronoi(200)
+  .color(_=>sin(time),$=>cos(time/2),0)
+  .scale(0.00001)
+//  .invert([0,1].fast(0.25))
+  .modulateScale(osc(3))
+  .rotate($=>((time/10) ))
+  .diff(
+    shape([3, 100, 6, 100])
+    .repeat( [1], [1,10] ).rotate($=>-sin(time))
+    .modulateRepeat(osc(20))
+    ) 
+  .out()
