@@ -1,14 +1,5 @@
 let { tan,cotan, asin, log2, sin, PI: pi} = Math
 
-id = $ =>$
-
-fill = (n, x, _ = id) =>
-  [...new Array(n)].map((u,i) =>_(i+x))
-
-pallindrome = (list) =>
-  [...list, ...list.concat.reverse()]
-
-
 gradient(0.5)
 .hue(0.3)
 .saturate(3)
