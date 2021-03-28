@@ -8,7 +8,7 @@ const Menu = require('./src/menu.js')
 const keymaps = require('./keymaps.js')
 const log = require('./src/log.js')
 const repl = require('./src/repl.js')
-console.log("index")
+
 function init () {
   window.pb = pb
   window.P5 = P5
@@ -32,7 +32,7 @@ function init () {
 
   var pb = new PatchBay()
   var hydra = new HydraSynth({ pb: pb, canvas: canvas, autoLoop: false,  precision: precisionValue})
-  var editor = new Editor()
+  var editor = window.editor = new Editor()
   var menu = window.menu = new Menu({ editor: editor, hydra: hydra})
   log.init()
 
@@ -78,6 +78,57 @@ function init () {
   var engine = loop(function(dt) {
     hydra.tick(dt)
   }).start()
+
+}
+
+function getVideoIndex( numVids = 8 ) {
+   const offset = 1; //human readable video filenames
+   return offset + Math.floor( (new Date()).getMinutes()/(numVids))
+}
+
+function addSourceForVideo( videoNum, prevCode ) {
+  let loadVideo = `s1.initVideo("videos/${videoNum}.mp4");`;
+  
+  let codeStart = `src( s1 ).blend(`;
+
+  let codeEnd = `, 0.5)`;
+
+  let nextCode = loadVideo + codeStart + prevCode.replace( ".out", codeEnd + ".out");
+  return nextCode.trim()
+}
+
+function shuffleScene() {
+  if ( document.querySelector("#shuffle-icon") ) {
+    videoNum= getVideoIndex();
+    
+    menu.new();
+    let text = document.querySelector(".CodeMirror").innerText;
+    let code = addSourceForVideo( videoNum, text );
+
+    window.editor.setValue( code );
+    menu.runAll()
+
+  }
+}
+
+
+function updateScene() {
+  if ( document.querySelector("#mutator-icon") ) {
+    menu.update();
+    document.querySelector(".CodeMirror-code").style.display = "none";
+    document.querySelector("#modal-header").style.display = "none";
+  }
+}
+
+
+window.automateVideo = function autoVideo(sceneLengthMinutes = 3, updateEverySeconds = 20) {
+
+  let shuffleSceneInterval = sceneLengthMinutes * 60  * 1000; // 3 minutes in milliseconds
+  let updateSceneInterval = updateEverySeconds * 1000;  // 15 seconds in milliseconds
+  
+  shuffleScene();
+  setInterval(shuffleScene, shuffleSceneInterval)
+  setInterval(updateScene, updateSceneInterval)
 
 }
 
