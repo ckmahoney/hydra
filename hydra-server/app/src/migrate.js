@@ -15,7 +15,7 @@ if ( !templates ) {
 function toSketch( filename ) {
   let sketch_id = filename.replace( ".js", "" ).replace("-", "_");
   let text = fs.readFileSync( path.resolve("presets/" + filename), "utf8" );
-  let encoded = encodeURIComponent(text)
+  let encoded = encodeURIComponent(text.trim())
   let code = Buffer.from( encoded ).toString( 'base64' )
   return {sketch_id: sketch_id, code: code };
 }
