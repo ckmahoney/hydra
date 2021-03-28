@@ -1,12 +1,12 @@
 voronoi(1,1,5) //.brightness(()=>Math.random()*0.15)
   .modulatePixelate(osc(0.001,0.5),100)
   .scale( 0.01 )
-.add( 
-  src( o0 ) 
+.add(
+  src( o0 )
   .colorama(2)
   , 0.5
   )
-.mult( 
+.mult(
   shape( [3,4,3,3] )
   .modulateScale( osc(0.2), 0.3 )
   .modulateRotate( osc(2), 0.2 )
@@ -20,12 +20,8 @@ voronoi(1,1,5) //.brightness(()=>Math.random()*0.15)
   noise( 5, 0.5 )
   .repeat( 10 )
 )
-.blend( 
+.blend(
   osc(0.2, -2)
   , $ => Math.sin(time)
-  .mask( 
-    voronoi()
-  )
 )
 .out(o0)
-    
